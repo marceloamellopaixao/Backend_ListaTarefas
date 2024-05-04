@@ -42,5 +42,5 @@ app.delete('/tarefas/:id', (req, res) => {
 });
 // Inicie o servidor Express:
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta em http;//localhost:${PORT}`);
+    console.log(`Servidor rodando na porta em http://localhost:${PORT}`);
 });
