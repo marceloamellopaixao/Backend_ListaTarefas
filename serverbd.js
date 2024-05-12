@@ -1,8 +1,10 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose()
+const cors = require('cors')
 
 const app = express();
 const PORT = 3000; // Defina a porta do servidor
+app.use(cors())
 
 const db = new sqlite3.Database('bd.db')
 
@@ -15,9 +17,9 @@ app.use(express.json());
 
 // Rota para adicionar uma nova tarefa
 app.post('/tarefas', (req, res) => {
-    const { tarefa } = req.body;
+    const { task } = req.body;
     // Inserir a nova tarefa no banco de dados
-    db.run("INSERT INTO tasks (task) VALUES (?)", [tarefa], function(err) {
+    db.run("INSERT INTO tasks (task) VALUES (?)", [task], function(err) {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -55,9 +57,9 @@ app.get('/tarefas/:id', (req, res) => {
 // Rota para editar uma tarefa existente
 app.put('/tarefas/:id', (req, res) => {
     const { id } = req.params;
-    const { tarefa } = req.body;
+    const { task } = req.body;
     // Atualizar a tarefa com base no ID
-    db.run("UPDATE tasks SET task = ? WHERE id = ?", [tarefa, id], function(err) {
+    db.run("UPDATE tasks SET task = ? WHERE id = ?", [task, id], function(err) {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
